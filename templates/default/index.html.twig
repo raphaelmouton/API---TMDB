@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+    <div class="container bg-white mt-5 mb-5 pb-5">
+        <header>
+            <h1>{{ result.title }} <strong>{{ result.runtime }} minutes</strong></h1>
+        </header>
+        <hr>
+        <section class="movies">
+            <div class="row">
+                <div class="col-md-4 col-xs-12 bouga pl-0">
+                    <a data-fancybox="gallery" href="https://image.tmdb.org/t/p/w500//{{ result.poster_path }}">
+                        <img src="https://image.tmdb.org/t/p/w500//{{ result.poster_path }}"
+                             alt="poster" class="w-100 img-responsive"/>
+                    </a>
+                </div>
+                <div class="col-md-8 col-xs-12 pr-5 pl-1">
+                    <p>{{ result.overview|nl2br }}</p>
+                    {% for genre in result.genres %}
+                        <div class="btn btn-warning mt-1">{{ genre.name }}</div>
+                    {% endfor %}
+                    <hr>
+                    <div class="col-12 mt-3">
+                        <p>Vidéos disponibles:</p>
+                        {% for video in videos.results %}
+                            <a data-fancybox href="https://www.youtube.com/embed/{{ video.key }}">
+                                <img src="http://img.youtube.com/vi/{{ video.key }}/0.jpg" class="w-25 img-responsive">
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.5.0/vanilla-tilt.babel.js">
+    </script>
+{% endblock %}
